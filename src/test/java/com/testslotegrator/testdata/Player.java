@@ -18,18 +18,18 @@ public class Player {
     private String password;
     @Getter
     @Setter
-    private BasicAuthUser user;
+    private BasicAuthUser basicAuthUser;
     private Header bearerAuthHeader;
 
-    public Player(String username, String password, BasicAuthUser user) {
+    public Player(String username, String password, BasicAuthUser basicAuthUser) {
         this.username = username;
         this.password = password;
-        this.user = user;
+        this.basicAuthUser = basicAuthUser;
     }
 
     public Header getBearerAuthHeader() {
         if (bearerAuthHeader == null) {
-            String accessToken = new AuthTokenEndpoint().auth(this.getUser(), AuthRequest.builder()
+            String accessToken = new AuthTokenEndpoint().auth(this.getBasicAuthUser(), AuthRequest.builder()
                     .grantType("password")
                     .password(this.getEncodedPassword())
                     .username(this.getUsername())
