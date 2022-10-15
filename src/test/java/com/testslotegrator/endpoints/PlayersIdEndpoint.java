@@ -14,7 +14,6 @@ public class PlayersIdEndpoint extends BaseEndpoint {
         return given()
                 .header(player.getBearerAuthHeader())
                 .get(endpoint, id)
-                .prettyPeek()
                 .then()
                 .statusCode(200)
                 .extract()

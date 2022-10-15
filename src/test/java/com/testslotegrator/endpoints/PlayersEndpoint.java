@@ -16,7 +16,6 @@ public class PlayersEndpoint extends BaseEndpoint {
                 .body(createPlayerRequest)
                 .header(user.getBearerAuthHeader())
                 .post(endpoint)
-                .prettyPeek()
                 .then()
                 .statusCode(201)
                 .extract()
