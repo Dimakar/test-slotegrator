@@ -6,6 +6,7 @@ import com.testslotegrator.dto.PlayerDto;
 import com.testslotegrator.endpoints.PlayersEndpoint;
 import com.testslotegrator.extensions.ApiTest;
 import com.testslotegrator.testdata.BasicAuthUser;
+import io.qameta.allure.Description;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,7 +43,7 @@ public class RegisterPlayerTest {
                         .passwordRepeat(password)
                         .username(faker.name().username() + LocalDateTime.now()
                                 .format(DateTimeFormatter.ofPattern("MMddHHmmss")))
-                        .currencyCode("USD")
+                        .currencyCode("EUR")
                         .build(),
                 CreatePlayerRequest.builder()
                         .email(faker.internet().emailAddress())
@@ -82,6 +83,7 @@ public class RegisterPlayerTest {
         );
     }
 
+    @Description("This test failed when trying to send currency_code")
     @ParameterizedTest
     @MethodSource("players")
     @DisplayName("/v2/players POST 201: Register new player")
