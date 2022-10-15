@@ -5,7 +5,7 @@ import com.testslotegrator.dto.CreatePlayerRequest;
 import com.testslotegrator.dto.PlayerDto;
 import com.testslotegrator.endpoints.PlayersEndpoint;
 import com.testslotegrator.extensions.ApiTest;
-import com.testslotegrator.testdata.User;
+import com.testslotegrator.testdata.BasicAuthUser;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,7 +23,7 @@ import static com.testslotegrator.testdata.TestDataHelper.getGuest;
 @ApiTest
 public class RegisterPlayerTest {
     static Faker faker = new Faker();
-    static User guest = getGuest();
+    static BasicAuthUser guest = getGuest();
     static PlayersEndpoint playersEndpoint = new PlayersEndpoint();
 
     public static Stream<CreatePlayerRequest> players() {

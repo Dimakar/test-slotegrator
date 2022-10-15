@@ -3,7 +3,7 @@ package com.testslotegrator.test.api;
 import com.testslotegrator.dto.AuthRequest;
 import com.testslotegrator.endpoints.AuthTokenEndpoint;
 import com.testslotegrator.extensions.ApiTest;
-import com.testslotegrator.testdata.User;
+import com.testslotegrator.testdata.BasicAuthUser;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 
 @ApiTest
 public class AuthByGuestTest {
-    static User guest = getGuest();
+    static BasicAuthUser guest = getGuest();
     static AuthTokenEndpoint authTokenEndpoint = new AuthTokenEndpoint();
 
     @Test

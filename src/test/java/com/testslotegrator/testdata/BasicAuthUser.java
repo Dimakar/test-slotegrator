@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public class User {
+public class BasicAuthUser {
     @Getter
     @Setter
     private String login;
@@ -19,7 +19,7 @@ public class User {
     private Header basicAuthHeader;
     private Header bearerAuthHeader;
 
-    public User(String login, String password) {
+    public BasicAuthUser(String login, String password) {
         this.login = login;
         this.password = password;
     }

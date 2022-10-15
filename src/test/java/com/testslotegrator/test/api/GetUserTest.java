@@ -7,7 +7,7 @@ import com.testslotegrator.endpoints.PlayersEndpoint;
 import com.testslotegrator.endpoints.PlayersIdEndpoint;
 import com.testslotegrator.extensions.ApiTest;
 import com.testslotegrator.testdata.Player;
-import com.testslotegrator.testdata.User;
+import com.testslotegrator.testdata.BasicAuthUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ApiTest
 public class GetUserTest {
     static Faker faker = new Faker();
-    static User guest = getGuest();
+    static BasicAuthUser guest = getGuest();
     static Player player1;
     static PlayerDto player1Dto;
     static Integer player2Id;

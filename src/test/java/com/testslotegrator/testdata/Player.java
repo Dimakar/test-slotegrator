@@ -18,10 +18,10 @@ public class Player {
     private String password;
     @Getter
     @Setter
-    private User user;
+    private BasicAuthUser user;
     private Header bearerAuthHeader;
 
-    public Player(String username, String password, User user) {
+    public Player(String username, String password, BasicAuthUser user) {
         this.username = username;
         this.password = password;
         this.user = user;

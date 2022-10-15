@@ -2,7 +2,7 @@ package com.testslotegrator.endpoints;
 
 import com.testslotegrator.dto.AuthRequest;
 import com.testslotegrator.dto.AuthResponse;
-import com.testslotegrator.testdata.User;
+import com.testslotegrator.testdata.BasicAuthUser;
 import io.qameta.allure.Step;
 import org.hamcrest.Matchers;
 
@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 public class AuthTokenEndpoint extends BaseEndpoint {
 
     @Step("{this.endpoint}: Авторизация")
-    public AuthResponse auth(User user, AuthRequest authRequest) {
+    public AuthResponse auth(BasicAuthUser user, AuthRequest authRequest) {
         return given()
                 .header(user.getBasicAuthHeader())
                 .body(authRequest)
