@@ -38,9 +38,6 @@ public class CreatePlayerRequest {
     @JsonProperty("username")
     private String username;
 
-    @JsonProperty("bonuses_allowed")
-    private Boolean bonusesAllowed;
-
     @JsonFormat(pattern = "YYYY-MM-dd")
     @JsonProperty("birthdate")
     private LocalDate birthdate;
@@ -53,9 +50,6 @@ public class CreatePlayerRequest {
 
     @JsonProperty("phone_number")
     private Integer phoneNumber;
-
-    @JsonProperty("is_verified")
-    private Boolean isVerified;
 
     @JsonProperty("country_id")
     private Integer countryId;

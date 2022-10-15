@@ -20,13 +20,14 @@ import static com.testslotegrator.testdata.TestDataHelper.getGuest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ApiTest
+@DisplayName("/v2/oauth2/token")
 public class AuthByNewPlayerTest {
-    static Faker faker = new Faker();
     static BasicAuthUser guest = getGuest();
     Player player;
 
     @BeforeEach
     void setUp() {
+        Faker faker = new Faker();
         player = new Player(faker.name().username()
                 + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddHHmmss")),
                 faker.internet().password(), guest);
@@ -39,7 +40,7 @@ public class AuthByNewPlayerTest {
     }
 
     @Test
-    @DisplayName("Авторизоваться под созданным игроком")
+    @DisplayName("/v2/oauth2/token POST 200: Auth by new player")
     void authByNewPlayerTest() {
         AuthResponse authResponse = new AuthTokenEndpoint().auth(guest, AuthRequest.builder()
                 .grantType("password")

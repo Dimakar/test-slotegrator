@@ -19,14 +19,17 @@ import java.util.Base64;
 import java.util.stream.Stream;
 
 import static com.testslotegrator.testdata.TestDataHelper.getGuest;
+import static io.qameta.allure.Allure.step;
 
 @ApiTest
+@DisplayName("/v2/players")
 public class RegisterPlayerTest {
-    static Faker faker = new Faker();
+
     static BasicAuthUser guest = getGuest();
     static PlayersEndpoint playersEndpoint = new PlayersEndpoint();
 
     public static Stream<CreatePlayerRequest> players() {
+        Faker faker = new Faker();
         String password = Base64.getEncoder()
                 .encodeToString(faker.internet().password()
                         .getBytes(StandardCharsets.UTF_8));
@@ -52,7 +55,6 @@ public class RegisterPlayerTest {
                         .gender("male")
                         .phoneNumber(faker.number().numberBetween(10000000, 99999999))
                         .countryId(1)
-                        .bonusesAllowed(false)
                         .birthdate(LocalDate.of(1990, 1, 1))
                         .timezoneId(1)
                         .build(),
@@ -67,7 +69,6 @@ public class RegisterPlayerTest {
                         .gender("female")
                         .phoneNumber(faker.number().numberBetween(10000, 99999))
                         .countryId(2)
-                        .bonusesAllowed(false)
                         .birthdate(LocalDate.of(1900, 1, 1))
                         .timezoneId(2)
                         .build(),
@@ -83,15 +84,20 @@ public class RegisterPlayerTest {
 
     @ParameterizedTest
     @MethodSource("players")
-    @DisplayName("Зарегистрировать игрока")
+    @DisplayName("/v2/players POST 201: Register new player")
     void createPlayerTest(CreatePlayerRequest createPlayerRequest) {
         PlayerDto playerDto = playersEndpoint.createPlayer(guest, createPlayerRequest);
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(playerDto)
-                .usingRecursiveComparison()
-                .isEqualTo(createPlayerRequest);
-        softAssertions.assertThat(playerDto.getId()).isNotNull();
-        softAssertions.assertThat(playerDto.getIsVerified()).isFalse();
+        step("Check created player is correct", () -> {
+            SoftAssertions softAssertions = new SoftAssertions();
+            softAssertions.assertThat(playerDto)
+                    .usingRecursiveComparison()
+                    .ignoringFields("id", "isVerified", "bonusesAllowed")
+                    .isEqualTo(createPlayerRequest);
+            softAssertions.assertThat(playerDto.getId()).isNotNull();
+            softAssertions.assertThat(playerDto.getIsVerified()).isFalse();
+            softAssertions.assertThat(playerDto.getBonusesAllowed()).isTrue();
+            softAssertions.assertAll();
+        });
     }
 }

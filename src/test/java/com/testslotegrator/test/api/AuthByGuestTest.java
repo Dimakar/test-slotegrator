@@ -12,12 +12,13 @@ import static com.testslotegrator.testdata.TestDataHelper.getGuest;
 import static io.restassured.RestAssured.given;
 
 @ApiTest
+@DisplayName("/v2/oauth2/token")
 public class AuthByGuestTest {
     static BasicAuthUser guest = getGuest();
     static AuthTokenEndpoint authTokenEndpoint = new AuthTokenEndpoint();
 
     @Test
-    @DisplayName("Получить токен гостя")
+    @DisplayName("/v2/oauth2/token POST 200: Get guest token")
     void apiTokenTest() {
         given()
                 .header(guest.getBasicAuthHeader())

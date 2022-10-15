@@ -20,17 +20,17 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ApiTest
+@DisplayName("/v2/players/{id}")
 public class GetUserTest {
-    static Faker faker = new Faker();
     static BasicAuthUser guest = getGuest();
     static Player player1;
     static PlayerDto player1Dto;
     static Integer player2Id;
-
     static PlayersIdEndpoint playersIdEndpoint = new PlayersIdEndpoint();
 
     @BeforeEach
     void setUp() {
+        Faker faker = new Faker();
         player1 = new Player(faker.name().username() + LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("MMddHHmmss")), faker.internet().password(), guest);
 
@@ -53,7 +53,7 @@ public class GetUserTest {
     }
 
     @Test
-    @DisplayName("Запросить данные профиля игрока")
+    @DisplayName("/v2/players/{id} GET 200: Get own profile by player")
     void getUserSuccessfulTest() {
         PlayerDto actualPlayerDto = new PlayersIdEndpoint().getPlayer(player1, player1Dto.getId());
         assertThat(actualPlayerDto)
@@ -62,7 +62,7 @@ public class GetUserTest {
     }
 
     @Test
-    @DisplayName("Запросить данные другого игрока")
+    @DisplayName("/v2/players/{id} GET 404: Get another player's profile")
     void getAnotherUserFailedTest() {
         given()
                 .header(player1.getBearerAuthHeader())
